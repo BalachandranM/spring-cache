@@ -1,4 +1,4 @@
-# spring-cache-Api
+# spring-cache-api
 *This project is all about getting started with Redis Cache
 *Added a glimpse of RestControllerAdvice
 *Added a glimpse of Exception handler
