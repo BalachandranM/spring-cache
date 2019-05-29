@@ -33,6 +33,14 @@ public class CacheController implements CacheApi {
 		logger.info("Response Time: " + new Date());
 		return new ResponseEntity<Student>(student, HttpStatus.OK);
 	}
+	
+	@Override
+	public ResponseEntity<Student> getStudentUsingCacheManager(Long id) {
+		logger.info("Invoked getStudent service");
+		Student student = studentService.getStudentWithAnnotation(id);
+		logger.info("Response Time: " + new Date());
+		return new ResponseEntity<Student>(student, HttpStatus.OK);
+	}
 
 	@Override
 	public ResponseEntity<Student> saveStudent(Student student) {

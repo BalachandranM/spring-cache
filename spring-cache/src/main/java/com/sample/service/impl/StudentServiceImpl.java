@@ -1,10 +1,13 @@
 package com.sample.service.impl;
 
 import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
 import com.sample.bean.Student;
 import com.sample.cache.RedisCacheService;
 import com.sample.repo.StudentRepo;
@@ -28,10 +31,6 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	/*
-	 * @Cacheable(value = "STUDENT", key = "#id.toString()", cacheManager
-	 * ="redisCacheManager")
-	 */
 	public Student getStudent(Long id) {
 		Student s = null;
 		if (!redisCache.isStudentCached(Long.toString(id))) {
@@ -47,14 +46,17 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	/*
-	 * @Cacheable(value = "STUDENT", key = "#newStudent.getId().toString()",
-	 * cacheManager ="redisCacheManager")
-	 */
 	public Student saveStudent(Student newStudent) {
 		logger.info("Saving student data to REPO");
 		Student s = studentRepo.save(newStudent);
 		return s;
 	}
 
+	@Override
+	@Cacheable(value = "STUDENT", key = "#id.toString()", cacheManager = "cacheManager")
+	public Student getStudentWithAnnotation(Long id) {
+		logger.info("Getting student data from repo");
+		Student s = studentRepo.findById(id).orElse(null);
+		return s;
+	}
 }

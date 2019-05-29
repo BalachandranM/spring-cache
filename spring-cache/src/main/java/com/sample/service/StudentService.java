@@ -11,4 +11,7 @@ public interface StudentService {
 	public Student getStudent(Long id);
 
 	public Student saveStudent(Student newStudent);
+	
+	public Student getStudentWithAnnotation(Long id);
+
 }

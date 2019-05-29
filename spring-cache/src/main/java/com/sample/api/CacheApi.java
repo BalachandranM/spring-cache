@@ -38,6 +38,16 @@ public interface CacheApi {
 	@GetMapping(value = "/get-student/{id}", produces = { "application/json" })
 	public ResponseEntity<Student> getStudent(@PathVariable("id") Long id);
 	
+	@ApiOperation(value = "This API endpoint will retrieve specific student according to the input", notes = "", response = ResponseEntity.class, tags = {
+			"Students API", })
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Request Processed Successfully", response = ResponseEntity.class),
+			@ApiResponse(code = 400, message = "Bad Request. Please see response body for more details", response = Void.class),
+			@ApiResponse(code = 401, message = "Unauthorized", response = Void.class),
+			@ApiResponse(code = 500, message = "Internal Server Error. Please see response body for more details", response = Void.class) })
+	@GetMapping(value = "/get-student-using-cache-manager/{id}", produces = { "application/json" })
+	public ResponseEntity<Student> getStudentUsingCacheManager(@PathVariable("id") Long id);
+	
 	@ApiOperation(value = "This API endpoint will save specific student according to the input", notes = "", response = ResponseEntity.class, tags = {
 			"Students API", })
 	@ApiResponses(value = {
