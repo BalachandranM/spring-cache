@@ -1,0 +1,80 @@
+ ########## application port ####################
+server:
+  port: 8017
+############ logging configuration ############### 
+logging:
+  file: /home/appowner/logfiles/${spring.application.name}.log
+  level:
+    com..: INFO
+---
+ ############# application name ###############
+spring:
+  application:
+    name: -
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        health-check-interval: ${consul.discovery.health.check.interval}
+        scheme: ${consul.discovery.scheme}
+        register-health-check: ${consul.discovery.register.health.check}
+---
+spring:
+  profiles: prod
+  datasource:
+    username: ${datasource.username}
+    password: ${datasource.password}
+  cloud:
+    config:
+     enabled: true
+     format: ${config.server.format}
+     fail-fast: true
+     ---
+spring:
+  profiles: stage
+  datasource:
+    username: ${datasource.username}
+    password: ${datasource.password}
+  cloud:
+    config:
+     enabled: true
+     format: ${config.server.format}
+     fail-fast: true
+     ---
+spring:
+  profiles: sit
+  datasource:
+    username: ${datasource.username}
+    password: ${datasource.password}
+  cloud:
+    config:
+      enabled: true
+      format: ${config.server.format}
+      fail-fast: true
+      ---
+spring:
+  profiles: dev
+  datasource:
+    username: ${datasource.username}
+    password: ${datasource.password}
+  cloud:
+    config:
+     enabled: true
+     format: ${config.server.format}
+     fail-fast: true
+---
+spring:
+  profiles: 
+   active:
+      - local
+  datasource:
+    username: ${datasource.username}
+    password: ${datasource.password}
+  cloud:
+    config:
+      enabled: true
+      format: ${config.server.format}
+      fail-fast: true
+      
