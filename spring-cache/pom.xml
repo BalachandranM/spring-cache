@@ -16,7 +16,7 @@
 
 	<properties>
 		<dep.scope>compile</dep.scope>
-		<springfox-version>2.5.0</springfox-version>
+		<springfox-version>2.10.0</springfox-version>
 		<java.version>1.8</java.version>
 	</properties>
 
